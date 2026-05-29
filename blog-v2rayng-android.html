@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V2RayNG 安卓手机配置教程：扫码导入与 VPN 模式设置 | V2Ray</title>
+  <meta name="description" content="V2RayNG 是 Android 平台上最好用的 V2Ray 客户端。本文手把手教你在安卓手机上使用 V2RayNG，包含扫码导入订阅、分应用代理等实用技巧。">
+  <meta name="keywords" content="V2RayNG, V2RayNG教程, V2RayNG下载, 安卓代理, Android VPN, V2Ray Android">
+  <meta property="og:title" content="V2RayNG 安卓手机配置教程：扫码导入与 VPN 模式设置">
+  <meta property="og:description" content="V2RayNG 是 Android 平台上最好用的 V2Ray 客户端。手把手教你在安卓手机上使用 V2RayNG。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='4' y='26' font-size='28'>🚀</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','Noto Sans SC','sans-serif']}}}}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "V2RayNG 安卓手机配置教程：扫码导入与 VPN 模式设置",
+    "description": "V2RayNG 是 Android 平台上最好用的 V2Ray 客户端。手把手教你在安卓手机上使用 V2RayNG。",
+    "author": { "@type": "Organization", "name": "V2Ray Official" },
+    "datePublished": "2026-05-10",
+    "dateModified": "2026-05-10"
+  }
+  </script>
+</head>
+<body class="antialiased selection:bg-blue-500/20">
+  <div class="fixed inset-0 z-[-1] bg-grid" style="background-color: var(--bg-primary);">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[560px] bg-emerald-600/12 blur-[180px] rounded-full pointer-events-none"></div>
+  </div>
+
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b" style="background: var(--header-bg); border-color: var(--border-primary);">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html#home" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+          <i class="fa-solid fa-paper-plane text-white text-sm"></i>
+        </div>
+        <span class="font-bold text-lg tracking-tight" style="color: var(--text-primary);">V2Ray</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html#home" class="text-sm font-medium transition-colors" style="color: var(--text-muted);">首页</a>
+        <a href="index.html#download" class="text-sm font-medium transition-colors" style="color: var(--text-muted);">下载</a>
+        <a href="blogs.html" class="text-sm font-medium text-blue-400">博客</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="theme-toggle" aria-label="切换主题">
+          <i data-lucide="moon" class="w-4 h-4 moon-icon" style="color: var(--text-secondary);"></i>
+          <i data-lucide="sun" class="w-4 h-4 sun-icon" style="color: var(--text-secondary);"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24 pb-20">
+    <article class="max-w-3xl mx-auto px-6">
+      <nav class="mb-8 flex items-center gap-2 text-xs" style="color: var(--text-dim);">
+        <a href="index.html" class="hover:text-blue-400 transition-colors">首页</a>
+        <i data-lucide="chevron-right" class="w-3 h-3"></i>
+        <a href="blogs.html" class="hover:text-blue-400 transition-colors">博客</a>
+        <i data-lucide="chevron-right" class="w-3 h-3"></i>
+        <span style="color: var(--text-muted);">V2RayNG 教程</span>
+      </nav>
+
+      <div class="flex items-center gap-2 mb-6">
+        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">V2RayNG</span>
+        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">Android</span>
+        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">教程</span>
+      </div>
+
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-6" style="color: var(--text-primary);">V2RayNG 安卓手机配置教程：扫码导入与 VPN 模式设置</h1>
+
+      <div class="flex items-center gap-4 mb-12 text-sm" style="color: var(--text-dim);">
+        <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4"></i> 2026-05-10</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4"></i> 阅读约 7 分钟</span>
+      </div>
+
+      <div class="article-content">
+        <p>V2RayNG 是 Android 平台上最受欢迎的 V2Ray 客户端，由知名开发者 2dust 维护。它基于 V2Ray 核心，支持 VMess、VLESS、Trojan、Shadowsocks 等多种协议，提供 VPN 模式全局代理和分应用代理功能。本文将详细介绍 V2RayNG 的安装和使用方法。</p>
+
+        <h2>一、V2RayNG 下载安装</h2>
+
+        <p>获取 V2RayNG 有以下几种方式：</p>
+
+        <ol>
+          <li><strong>GitHub Releases（推荐）：</strong>访问 <a href="https://github.com/2dust/v2rayNG/releases" class="text-blue-400 hover:underline" target="_blank">github.com/2dust/v2rayNG/releases</a>，下载最新的 APK 文件（当前最新版本 <strong>v2.1.8</strong>）</li>
+          <li><strong>Google Play：</strong>在 Google Play 商店搜索 "V2RayNG" 直接安装</li>
+          <li><strong>第三方应用商店：</strong>部分国内应用商店也有收录</li>
+        </ol>
+
+        <blockquote>注意：安装 APK 前需要在系统设置中开启「允许安装未知来源应用」。建议始终从官方渠道下载，避免使用来路不明的修改版。</blockquote>
+
+        <h2>二、导入订阅的三种方式</h2>
+
+        <h3>方式一：扫码导入（最方便）</h3>
+        <ol>
+          <li>打开 V2RayNG，点击右上角的「+」按钮</li>
+          <li>选择「从二维码扫描」</li>
+          <li>使用手机摄像头扫描机场提供的二维码</li>
+          <li>扫描成功后，节点信息将自动添加到列表中</li>
+        </ol>
+
+        <h3>方式二：订阅链接导入</h3>
+        <ol>
+          <li>点击左上角的「三横线」菜单按钮</li>
+          <li>选择「订阅设置」</li>
+          <li>点击右上角的「+」添加订阅</li>
+          <li>在地址栏粘贴你的订阅链接，填写备注名</li>
+          <li>保存后返回主界面，点击右上角「更新订阅」</li>
+        </ol>
+
+        <h3>方式三：从剪贴板导入</h3>
+        <ol>
+          <li>复制包含节点信息的文本（支持 vmess://、vless://、trojan:// 等链接格式）</li>
+          <li>打开 V2RayNG，点击右上角「+」</li>
+          <li>选择「从剪贴板导入」</li>
+        </ol>
+
+        <h2>三、连接与 VPN 模式</h2>
+
+        <p>导入节点后，按以下步骤连接：</p>
+
+        <ol>
+          <li>在节点列表中选择一个节点，点击使其变为选中状态</li>
+          <li>点击主界面右下角的「V」按钮（三角形图标）启动连接</li>
+          <li>首次连接时，系统会弹出 VPN 权限请求，点击「确定」允许</li>
+          <li>连接成功后，状态栏会显示 VPN 图标</li>
+        </ol>
+
+        <h3>分应用代理</h3>
+
+        <p>V2RayNG 支持分应用代理功能，你可以指定哪些应用走代理，哪些直连：</p>
+        <ul>
+          <li>进入「设置」→「分应用代理」</li>
+          <li>开启「启用分应用代理」</li>
+          <li>勾选需要走代理的应用，未勾选的应用将直连</li>
+        </ul>
+
+        <p>这个功能非常实用，比如你可以让浏览器走代理，而微信、支付宝等国内应用直连，避免不必要的代理开销。</p>
+
+        <h2>四、路由与分流设置</h2>
+
+        <p>V2RayNG 内置了预设的路由规则，通常使用默认设置即可。如果你需要自定义：</p>
+
+        <ul>
+          <li><strong>绕过局域网及大陆地址：</strong>国内 IP 和局域网地址直连，海外地址走代理（推荐）</li>
+          <li><strong>绕过局域网地址：</strong>仅局域网直连，其他全部走代理</li>
+          <li><strong>全部走代理：</strong>所有流量都通过代理服务器</li>
+        </ul>
+
+        <h2>五、节点测速与选择</h2>
+
+        <p>V2RayNG 提供了节点测速功能：</p>
+
+        <ol>
+          <li>在主界面点击右上角「...」菜单</li>
+          <li>选择「测试全部配置」</li>
+          <li>等待测速完成后，列表会显示每个节点的延迟</li>
+          <li>延迟越低的节点速度越快，建议优先使用延迟低于 200ms 的节点</li>
+        </ol>
+
+        <h2>六、常见问题解决</h2>
+
+        <h3>连接后无法上网？</h3>
+        <p>检查节点是否可用（测速），尝试切换其他节点。确认 VPN 权限已授予，检查手机时间是否准确（时间偏差过大会导致 VMess 连接失败）。</p>
+
+        <h3>网速很慢怎么办？</h3>
+        <p>尝试切换到延迟更低的节点，或者更换协议（如从 VMess 切换到 Trojan）。避开网络高峰期使用。</p>
+
+        <h3>订阅更新失败？</h3>
+        <p>检查网络连接，确认订阅链接未过期。部分地区可能需要使用订阅转换服务来绕过封锁。</p>
+
+        <h2>总结</h2>
+
+        <p>V2RayNG 是 Android 用户使用 V2Ray 的最佳选择。它支持多种导入方式，VPN 模式稳定可靠，分应用代理功能实用方便。通过本文的教程，你应该已经掌握了 V2RayNG 的基本使用方法。建议定期更新客户端和订阅，以获得最佳的使用体验。</p>
+      </div>
+
+      <div class="mt-16 pt-8" style="border-top: 1px solid var(--border-primary);">
+        <h3 class="text-xl font-bold mb-6" style="color: var(--text-primary);">相关文章</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="blog-v2rayn-guide.html" class="glass-card rounded-xl p-4 group">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">V2RayN</span>
+            <h4 class="text-sm font-semibold mt-2 group-hover:text-blue-400 transition-colors" style="color: var(--text-primary);">V2RayN 完整使用教程</h4>
+          </a>
+          <a href="blog-v2rayu-macos.html" class="glass-card rounded-xl p-4 group">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">V2RayU</span>
+            <h4 class="text-sm font-semibold mt-2 group-hover:text-blue-400 transition-colors" style="color: var(--text-primary);">V2RayU macOS 安装配置指南</h4>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="border-t" style="border-color: var(--border-primary); background: var(--bg-secondary);">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-xs" style="color: var(--text-dim);">&copy; 2024-2026 V2Ray. 本站仅为信息介绍，与 V2Ray 官方无关。</p>
+      <a href="index.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">返回首页</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

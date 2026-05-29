@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V2Ray 支持的协议详解：VMess、VLESS、Trojan 全面解析 | V2Ray</title>
+  <meta name="description" content="深入解析 V2Ray 支持的各种代理协议，包括 VMess、VLESS、Trojan、Shadowsocks 的特点、区别和适用场景，帮助你选择最佳协议。">
+  <meta name="keywords" content="V2Ray协议, VMess, VLESS, Trojan, Shadowsocks, 代理协议对比, V2Ray协议选择">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='4' y='26' font-size='28'>🚀</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','Noto Sans SC','sans-serif']}}}}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="antialiased selection:bg-blue-500/20">
+  <div class="fixed inset-0 z-[-1] bg-grid" style="background-color: var(--bg-primary);">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[560px] bg-amber-600/12 blur-[180px] rounded-full pointer-events-none"></div>
+  </div>
+
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b" style="background: var(--header-bg); border-color: var(--border-primary);">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html#home" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+          <i class="fa-solid fa-paper-plane text-white text-sm"></i>
+        </div>
+        <span class="font-bold text-lg tracking-tight" style="color: var(--text-primary);">V2Ray</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html#home" class="text-sm font-medium transition-colors" style="color: var(--text-muted);">首页</a>
+        <a href="index.html#download" class="text-sm font-medium transition-colors" style="color: var(--text-muted);">下载</a>
+        <a href="blogs.html" class="text-sm font-medium text-blue-400">博客</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="theme-toggle" aria-label="切换主题">
+          <i data-lucide="moon" class="w-4 h-4 moon-icon" style="color: var(--text-secondary);"></i>
+          <i data-lucide="sun" class="w-4 h-4 sun-icon" style="color: var(--text-secondary);"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24 pb-20">
+    <article class="max-w-3xl mx-auto px-6">
+      <nav class="mb-8 flex items-center gap-2 text-xs" style="color: var(--text-dim);">
+        <a href="index.html" class="hover:text-blue-400 transition-colors">首页</a>
+        <i data-lucide="chevron-right" class="w-3 h-3"></i>
+        <a href="blogs.html" class="hover:text-blue-400 transition-colors">博客</a>
+        <i data-lucide="chevron-right" class="w-3 h-3"></i>
+        <span style="color: var(--text-muted);">协议解析</span>
+      </nav>
+
+      <div class="flex items-center gap-2 mb-6">
+        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">协议解析</span>
+      </div>
+
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-black leading-tight mb-6" style="color: var(--text-primary);">V2Ray 支持的协议详解：VMess、VLESS、Trojan 全面解析</h1>
+
+      <div class="flex items-center gap-4 mb-12 text-sm" style="color: var(--text-dim);">
+        <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-4 h-4"></i> 2026-04-20</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4"></i> 阅读约 9 分钟</span>
+      </div>
+
+      <div class="article-content">
+        <p>V2Ray 支持多种代理协议，每种协议都有其独特的设计理念和适用场景。了解这些协议的特点，可以帮助你更好地选择和配置代理。本文将详细解析 V2Ray 支持的主流协议。</p>
+
+        <h2>一、VMess 协议</h2>
+
+        <p>VMess 是 V2Ray 自研的核心协议，也是 V2Ray 最具代表性的协议。</p>
+
+        <h3>特点</h3>
+        <ul>
+          <li><strong>加密传输：</strong>内置 AES-128-GCM 加密，无需额外 TLS 也能保证安全性</li>
+          <li><strong>动态端口：</strong>支持动态更换端口，增加隐蔽性</li>
+          <li><strong>时间戳验证：</strong>使用时间戳防止重放攻击</li>
+          <li><strong>用户认证：</strong>基于 UUID 进行用户身份验证</li>
+        </ul>
+
+        <h3>适用场景</h3>
+        <p>VMess 适合对安全性要求较高的场景。配合 WebSocket + TLS 使用时，流量可以伪装成正常的 HTTPS 流量，隐蔽性极强。</p>
+
+        <h2>二、VLESS 协议</h2>
+
+        <p>VLESS 是 VMess 的轻量级版本，去除了内置加密层，转而依赖外层 TLS 加密。</p>
+
+        <h3>特点</h3>
+        <ul>
+          <li><strong>零加密开销：</strong>不再自行加密数据，由 TLS 层负责，性能更好</li>
+          <li><strong>更轻量：</strong>协议头部更小，传输效率更高</li>
+          <li><strong>配合 Reality：</strong>VLESS + Reality 是目前最先进的组合，无需域名即可实现 TLS</li>
+        </ul>
+
+        <h3>VLESS + Reality</h3>
+        <p>Reality 是 Xray 项目引入的革命性技术。它不需要域名和证书，通过握手阶段伪装成访问正常网站（如 yahoo.com），实现了极高的隐蔽性。这是目前最推荐的协议组合。</p>
+
+        <h2>三、Trojan 协议</h2>
+
+        <p>Trojan 的设计理念是"将代理流量伪装成正常的 HTTPS 流量"。</p>
+
+        <h3>特点</h3>
+        <ul>
+          <li><strong>HTTPS 伪装：</strong>流量看起来就像正常的 HTTPS 网站访问</li>
+          <li><strong>简单高效：</strong>协议设计简单，性能开销小</li>
+          <li><strong>需要域名：</strong>必须配合域名和 TLS 证书使用</li>
+        </ul>
+
+        <h3>适用场景</h3>
+        <p>Trojan 适合已有域名和证书的用户。它的流量特征与正常 HTTPS 完全一致，很难被识别和阻断。</p>
+
+        <h2>四、Shadowsocks 协议</h2>
+
+        <p>Shadowsocks（SS）是最经典的代理协议之一，诞生于 2012 年。</p>
+
+        <h3>特点</h3>
+        <ul>
+          <li><strong>轻量快速：</strong>协议设计简洁，性能优秀</li>
+          <li><strong>广泛兼容：</strong>几乎所有代理工具都支持</li>
+          <li><strong>多种加密：</strong>支持 AES-256-GCM、ChaCha20-Poly1305 等加密方式</li>
+        </ul>
+
+        <h3>局限性</h3>
+        <p>由于 Shadowsocks 的流量特征已经被广泛研究，在某些严格的网络环境下可能被识别。建议使用 AEAD 加密方式（如 AES-256-GCM）以提高安全性。</p>
+
+        <h2>五、WireGuard 协议</h2>
+
+        <p>WireGuard 是新一代 VPN 协议，以简洁高效著称。</p>
+
+        <h3>特点</h3>
+        <ul>
+          <li><strong>极简设计：</strong>代码量仅约 4000 行，远少于 OpenVPN 等传统 VPN</li>
+          <li><strong>高性能：</strong>使用 ChaCha20 加密，速度极快</li>
+          <li><strong>低延迟：</strong>适合对延迟敏感的应用（如游戏、视频通话）</li>
+        </ul>
+
+        <h2>六、协议选择建议</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>协议</th>
+              <th>安全性</th>
+              <th>速度</th>
+              <th>隐蔽性</th>
+              <th>推荐场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>VLESS + Reality</td>
+              <td>★★★★★</td>
+              <td>★★★★★</td>
+              <td>★★★★★</td>
+              <td>首选推荐</td>
+            </tr>
+            <tr>
+              <td>Trojan + TLS</td>
+              <td>★★★★★</td>
+              <td>★★★★☆</td>
+              <td>★★★★★</td>
+              <td>有域名的用户</td>
+            </tr>
+            <tr>
+              <td>VMess + WS + TLS</td>
+              <td>★★★★☆</td>
+              <td>★★★★☆</td>
+              <td>★★★★☆</td>
+              <td>经典方案</td>
+            </tr>
+            <tr>
+              <td>Shadowsocks</td>
+              <td>★★★★☆</td>
+              <td>★★★★★</td>
+              <td>★★★☆☆</td>
+              <td>追求速度</td>
+            </tr>
+            <tr>
+              <td>WireGuard</td>
+              <td>★★★★★</td>
+              <td>★★★★★</td>
+              <td>★★★☆☆</td>
+              <td>低延迟需求</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>总结</h2>
+
+        <p>如果你是新用户，建议优先选择 <strong>VLESS + Reality</strong> 或 <strong>Trojan + TLS</strong>，它们在安全性、速度和隐蔽性方面都有出色表现。如果你的机场不支持这些协议，VMess + WS + TLS 也是可靠的经典方案。Shadowsocks 适合追求极致速度的用户，但要注意其隐蔽性相对较弱。</p>
+      </div>
+
+      <div class="mt-16 pt-8" style="border-top: 1px solid var(--border-primary);">
+        <h3 class="text-xl font-bold mb-6" style="color: var(--text-primary);">相关文章</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="blog-v2ray-vs-clash.html" class="glass-card rounded-xl p-4 group">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">对比评测</span>
+            <h4 class="text-sm font-semibold mt-2 group-hover:text-blue-400 transition-colors" style="color: var(--text-primary);">V2Ray vs Clash 详细对比</h4>
+          </a>
+          <a href="blog-v2ray-speed.html" class="glass-card rounded-xl p-4 group">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">优化技巧</span>
+            <h4 class="text-sm font-semibold mt-2 group-hover:text-blue-400 transition-colors" style="color: var(--text-primary);">V2Ray 速度优化技巧</h4>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="border-t" style="border-color: var(--border-primary); background: var(--bg-secondary);">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-xs" style="color: var(--text-dim);">&copy; 2024-2026 V2Ray. 本站仅为信息介绍，与 V2Ray 官方无关。</p>
+      <a href="index.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">返回首页</a>
+    </div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

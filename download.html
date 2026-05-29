@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V2Ray 客户端免费下载 | V2RayN、V2RayNG、V2RayU 最新版</title>
+  <meta name="description" content="免费下载 V2Ray 各平台客户端：Windows/Linux 推荐 V2RayN，Android 推荐 V2RayNG，macOS 推荐 V2RayU。提供最新版本直链与安装指引。">
+  <meta name="keywords" content="V2Ray下载, V2RayN下载, V2RayNG下载, V2RayU下载, V2RayN Linux, 代理客户端下载, V2Ray最新版">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="V2Ray 客户端免费下载 | V2RayN、V2RayNG、V2RayU 最新版">
+  <meta property="og:description" content="免费下载 V2Ray 各平台客户端，所有安装包均来自官方 GitHub Release，纯净安全。">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text x='4' y='26' font-size='28'>🚀</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','Noto Sans SC','sans-serif']}}}}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "V2Ray",
+    "operatingSystem": "Windows, macOS, Android",
+    "applicationCategory": "NetworkingApplication",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "downloadUrl": "https://v2raydown.com/download.html"
+  }
+  </script>
+  <style>
+    .tab-btn.active {
+      background: rgba(59, 130, 246, 0.12);
+      border-color: rgba(59, 130, 246, 0.35);
+      color: #93c5fd;
+    }
+    .light-mode .tab-btn.active {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: #2563eb;
+    }
+    .dl-card {
+      transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .dl-card:hover {
+      transform: translateY(-2px);
+    }
+    .platform-section { display: none; }
+    .platform-section.active { display: block; }
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-500/20">
+  <div class="fixed inset-0 z-[-1] bg-grid" style="background-color: var(--bg-primary);">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b" style="background: var(--header-bg); border-color: var(--border-primary);">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html#home" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+          <i class="fa-solid fa-paper-plane text-white text-sm"></i>
+        </div>
+        <span class="font-bold text-lg tracking-tight" style="color: var(--text-primary);">V2Ray</span>
+        <span class="text-blue-400/60 text-xs font-medium hidden sm:inline">Official</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html#home" class="text-sm font-medium transition-colors" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">首页</a>
+        <a href="index.html#features" class="text-sm font-medium transition-colors" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">功能特性</a>
+        <a href="download.html" class="text-sm font-medium text-blue-400">客户端下载</a>
+        <a href="blogs.html" class="text-sm font-medium transition-colors" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">博客</a>
+        <a href="index.html#faq" class="text-sm font-medium transition-colors" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">常见问题</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="theme-toggle" aria-label="切换主题">
+          <i data-lucide="moon" class="w-4 h-4 moon-icon" style="color: var(--text-secondary);"></i>
+          <i data-lucide="sun" class="w-4 h-4 sun-icon" style="color: var(--text-secondary);"></i>
+        </button>
+        <a href="download.html" class="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-5 py-2 rounded-lg transition-all">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          下载
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-28 pb-20">
+    <div class="max-w-5xl mx-auto px-6">
+
+      <!-- Page Hero -->
+      <div class="text-center mb-14">
+        <p class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-4">全平台支持</p>
+        <h1 class="text-4xl md:text-5xl font-black mb-5 tracking-tight" style="color: var(--text-primary);">下载 V2Ray 客户端</h1>
+        <p class="max-w-lg mx-auto leading-relaxed" style="color: var(--text-muted);">
+          选择适合您设备的版本，所有安装包均来自官方 GitHub Release，纯净安全。
+        </p>
+      </div>
+
+      <!-- Platform Tabs -->
+      <div class="flex items-center justify-center gap-2 mb-10 flex-wrap">
+        <button data-tab="windows" class="tab-btn active flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all" style="border: 1px solid var(--border-card); background: var(--bg-card); color: var(--text-secondary);">
+          <i class="fa-brands fa-windows w-4 h-4 text-center"></i> Windows
+        </button>
+        <button data-tab="macos" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all" style="border: 1px solid var(--border-card); background: var(--bg-card); color: var(--text-secondary);">
+          <i class="fa-brands fa-apple w-4 h-4 text-center"></i> macOS
+        </button>
+        <button data-tab="android" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all" style="border: 1px solid var(--border-card); background: var(--bg-card); color: var(--text-secondary);">
+          <i class="fa-brands fa-android w-4 h-4 text-center"></i> Android
+        </button>
+        <button data-tab="linux" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all" style="border: 1px solid var(--border-card); background: var(--bg-card); color: var(--text-secondary);">
+          <i class="fa-brands fa-linux w-4 h-4 text-center"></i> Linux
+        </button>
+      </div>
+
+      <!-- ===== WINDOWS ===== -->
+      <div id="tab-windows" class="platform-section active">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- V2RayN Desktop -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shrink-0" style="box-shadow: 0 0 16px rgba(37,99,235,0.3);">
+                  <i class="fa-brands fa-windows text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayN (Desktop)</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v7.22.3 · 持续更新</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">推荐</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">基于 .NET 的 Windows 图形化客户端，功能全面，支持 VMess、VLESS、Trojan、Shadowsocks 等协议，界面简洁易用。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-windows-64-desktop.zip" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold transition-all">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                  下载 64位 安装版 (.zip)
+                </span>
+                <span class="text-blue-200 text-xs">推荐</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-windows-64.zip" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载 64位 便携版 (.zip)
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">无需安装</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- V2RayN ARM64 -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 flex items-center justify-center shrink-0">
+                  <i class="fa-brands fa-windows text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayN (ARM64)</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v7.22.3 · ARM 设备</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-dim);">ARM</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">适用于 Windows on ARM 设备（如 Surface Pro X、骁龙笔记本等）。同时提供桌面版和控制台版。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-windows-arm64-desktop.zip" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载 ARM64 桌面版 (.zip)
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.zip</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-windows-arm64.zip" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载 ARM64 便携版 (.zip)
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.zip</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 px-5 py-4 rounded-xl flex items-start gap-3" style="background: var(--bg-card); border: 1px solid var(--border-card);">
+          <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5" style="color: var(--text-dim);"></i>
+          <p class="text-xs leading-relaxed" style="color: var(--text-dim);">桌面版 (Desktop) 包含图形界面，便携版为命令行版本。推荐大多数用户下载桌面版。需要 .NET 8.0 运行时支持（Windows 10/11 通常已内置）。</p>
+        </div>
+      </div>
+
+      <!-- ===== macOS ===== -->
+      <div id="tab-macos" class="platform-section">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- V2RayU ARM64 -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-600 to-cyan-800 flex items-center justify-center shrink-0" style="box-shadow: 0 0 16px rgba(6,182,212,0.3);">
+                  <i class="fa-brands fa-apple text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayU</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v4.2.8 · Apple Silicon</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">推荐</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">基于 Swift 原生开发的 macOS 客户端，菜单栏快捷操作，支持 PAC/全局模式切换，适配 Apple Silicon M 芯片。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/yanue/V2rayU/releases/download/v4.2.8/V2rayU-arm64.dmg" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold transition-all">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                  下载 Apple M芯片版
+                </span>
+                <span class="text-cyan-200 text-xs">.dmg</span>
+              </a>
+              <a href="https://github.com/yanue/V2rayU/releases/download/v4.2.8/V2rayU-64.dmg" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载 Intel 芯片版
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.dmg</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- V2RayN macOS (Linux builds also work?) -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center shrink-0">
+                  <i class="fa-brands fa-apple text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayN (macOS)</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v7.22.3 · 跨平台</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-dim);">替代</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">V2RayN 也提供 macOS 版本，基于 Avalonia 跨平台框架。如果你更习惯 V2RayN 的操作方式，可以在 macOS 上使用。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="external-link" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  前往 GitHub Releases
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">选择 macOS 版</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 px-5 py-4 rounded-xl flex items-start gap-3" style="background: var(--bg-card); border: 1px solid var(--border-card);">
+          <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5" style="color: var(--text-dim);"></i>
+          <p class="text-xs leading-relaxed" style="color: var(--text-dim);">macOS 首次运行 .dmg 时如提示「无法验证开发者」，请前往「系统设置 → 隐私与安全性」点击「仍要打开」。Apple Silicon (M1/M2/M3/M4) 用户请下载 ARM64 版本。</p>
+        </div>
+      </div>
+
+      <!-- ===== ANDROID ===== -->
+      <div id="tab-android" class="platform-section">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- V2RayNG ARM64 -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center shrink-0" style="box-shadow: 0 0 16px rgba(16,185,129,0.3);">
+                  <i class="fa-brands fa-android text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayNG</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v2.1.8 · 持续更新</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">推荐</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">Android 平台最流行的 V2Ray 客户端，支持 VPN 模式全局代理、分应用代理、扫码导入订阅等功能。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/2dust/v2rayNG/releases/download/2.1.8/v2rayNG_2.1.8_arm64-v8a.apk" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-all">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                  下载 arm64-v8a 版
+                </span>
+                <span class="text-emerald-200 text-xs">.apk</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayNG/releases/download/2.1.8/v2rayNG_2.1.8_universal.apk" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载通用版 (Universal)
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.apk</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayNG/releases/download/2.1.8/v2rayNG_2.1.8-fdroid_arm64-v8a.apk" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  F-Droid 版 arm64
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.apk</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- V2RayNG x86 -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-600 to-orange-800 flex items-center justify-center shrink-0">
+                  <i class="fa-brands fa-android text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayNG (其他架构)</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v2.1.8</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-dim);">更多</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">为不同 CPU 架构的 Android 设备提供对应版本。不确定架构时请选择上方的 Universal 通用版。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/2dust/v2rayNG/releases/download/2.1.8/v2rayNG_2.1.8_armeabi-v7a.apk" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  armeabi-v7a (32位)
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.apk</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayNG/releases/download/2.1.8/v2rayNG_2.1.8_x86_64.apk" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  x86_64 (模拟器)
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.apk</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayNG/releases" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="external-link" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  查看全部版本
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 px-5 py-4 rounded-xl flex items-start gap-3" style="background: var(--bg-card); border: 1px solid var(--border-card);">
+          <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5" style="color: var(--text-dim);"></i>
+          <p class="text-xs leading-relaxed" style="color: var(--text-dim);">安装前请开启「允许安装未知来源应用」。大多数现代手机选择 arm64-v8a 版本即可，不确定时下载 Universal 通用版。F-Droid 版去除 Google 服务依赖，适合无 GMS 设备。</p>
+        </div>
+      </div>
+
+      <!-- ===== LINUX ===== -->
+      <div id="tab-linux" class="platform-section">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- V2RayN Linux deb -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center shrink-0">
+                  <i class="fa-brands fa-linux text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayN (deb)</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v7.22.3 · Ubuntu / Debian</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">推荐</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">适用于 Ubuntu、Debian 及其衍生发行版。提供 64 位和 ARM64 版本，同时支持龙芯 (LoongArch) 架构。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-linux-64.deb" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold transition-all">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                  下载 amd64 .deb
+                </span>
+                <span class="text-amber-200 text-xs">.deb</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-linux-arm64.deb" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载 ARM64 .deb
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.deb</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- V2RayN Linux rpm / zip -->
+          <div class="dl-card glass-card rounded-2xl p-6">
+            <div class="flex items-start justify-between mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center shrink-0">
+                  <i class="fa-brands fa-linux text-white text-lg"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base" style="color: var(--text-primary);">V2RayN (其他格式)</h3>
+                  <span class="text-xs" style="color: var(--text-dim);">v7.22.3 · rpm / zip</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-dim);">更多</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-6" style="color: var(--text-muted);">为 Fedora / RHEL / CentOS 提供 RPM 包，同时提供通用 zip 便携版，适用于所有 Linux 发行版。</p>
+            <div class="space-y-2.5">
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-linux-rhel-64.rpm" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载 x86_64 .rpm
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">Fedora / RHEL</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayN/releases/download/7.22.3/v2rayN-linux-64.zip" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="download" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  下载 64位 便携版
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">.zip</span>
+              </a>
+              <a href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener"
+                class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all" style="background: var(--bg-card); border: 1px solid var(--border-card); color: var(--text-primary);">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="external-link" class="w-4 h-4" style="color: var(--text-muted);"></i>
+                  查看全部版本
+                </span>
+                <span class="text-xs" style="color: var(--text-dim);">GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 px-5 py-4 rounded-xl flex items-start gap-3" style="background: var(--bg-card); border: 1px solid var(--border-card);">
+          <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5" style="color: var(--text-dim);"></i>
+          <p class="text-xs leading-relaxed" style="color: var(--text-dim);">deb 包使用 <code class="px-1 py-0.5 rounded text-xs" style="background: var(--bg-card); border: 1px solid var(--border-card);">sudo dpkg -i</code> 安装，rpm 包使用 <code class="px-1 py-0.5 rounded text-xs" style="background: var(--bg-card); border: 1px solid var(--border-card);">sudo rpm -i</code> 安装。便携版解压后直接运行即可。</p>
+        </div>
+      </div>
+
+      <!-- ===== FEATURES ===== -->
+      <div class="mt-24 pt-16" style="border-top: 1px solid var(--border-primary);">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl font-bold mb-3" style="color: var(--text-primary);">为什么选择 V2Ray？</h2>
+          <p class="text-sm" style="color: var(--text-muted);">卓越的性能与极致的灵活性，为您提供更自由的网络访问体验。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="p-6 rounded-2xl glass-card" style="border: 1px solid var(--border-card);">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+              <i data-lucide="network" class="w-5 h-5 text-blue-400"></i>
+            </div>
+            <h3 class="font-bold mb-2" style="color: var(--text-primary);">多协议支持</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-dim);">完整支持 VMess、VLESS、Trojan、Shadowsocks 等主流代理协议。</p>
+          </div>
+          <div class="p-6 rounded-2xl glass-card" style="border: 1px solid var(--border-card);">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-4">
+              <i data-lucide="mouse-pointer" class="w-5 h-5 text-cyan-400"></i>
+            </div>
+            <h3 class="font-bold mb-2" style="color: var(--text-primary);">一键导入订阅</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-dim);">支持订阅链接、扫码、剪贴板等多种导入方式，新手也能轻松上手。</p>
+          </div>
+          <div class="p-6 rounded-2xl glass-card" style="border: 1px solid var(--border-card);">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-4">
+              <i data-lucide="layout-dashboard" class="w-5 h-5 text-indigo-400"></i>
+            </div>
+            <h3 class="font-bold mb-2" style="color: var(--text-primary);">全平台覆盖</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-dim);">Windows、macOS、Android 全平台覆盖，一套订阅多端同步。</p>
+          </div>
+          <div class="p-6 rounded-2xl glass-card" style="border: 1px solid var(--border-card);">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+              <i data-lucide="git-branch" class="w-5 h-5 text-emerald-400"></i>
+            </div>
+            <h3 class="font-bold mb-2" style="color: var(--text-primary);">智能分流策略</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-dim);">强大的路由引擎，国内外流量自动分离，确保访问极致流畅。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t" style="border-color: var(--border-primary); background: var(--bg-secondary);">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-xs" style="color: var(--text-dim);">&copy; 2024-2026 V2Ray. 本站仅为信息介绍，与 V2Ray 官方无关。</p>
+      <a href="index.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">返回首页</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Platform tab switching
+    const tabs = document.querySelectorAll('.tab-btn');
+    function activateTab(platform) {
+      tabs.forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.platform-section').forEach(s => s.classList.remove('active'));
+      const btn = document.querySelector('.tab-btn[data-tab="' + platform + '"]');
+      const section = document.getElementById('tab-' + platform);
+      if (btn) btn.classList.add('active');
+      if (section) section.classList.add('active');
+    }
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activateTab(btn.dataset.tab);
+        history.replaceState(null, '', '#' + btn.dataset.tab);
+      });
+    });
+    const validTabs = ['windows', 'macos', 'android', 'linux'];
+    function applyHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && validTabs.includes(hash)) {
+        activateTab(hash);
+        window.scrollTo(0, 0);
+      }
+    }
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+  </script>
+</body>
+</html>
