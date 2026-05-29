@@ -1,0 +1,164 @@
+name: Check & Update V2Ray Versions
+
+on:
+  schedule:
+    # 每天北京时间 10:00 (UTC 02:00) 检查一次
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.DEPLOY_TOKEN }}
+
+      - name: Check for new versions
+        id: check
+        run: |
+          # 获取当前 HTML 中的版本号
+          V2RAYN_OLD=$(grep -oP 'v2rayN/releases/download/\K[0-9.]+' index.html | head -1)
+          V2RAYNG_OLD=$(grep -oP 'v2rayNG/releases/download/\K[0-9.]+' index.html | head -1)
+          V2RAYU_OLD=$(grep -oP 'V2rayU/releases/download/v?\K[0-9.]+' index.html | head -1)
+
+          echo "Current versions: V2RayN=$V2RAYN_OLD, V2RayNG=$V2RAYNG_OLD, V2RayU=$V2RAYU_OLD"
+
+          # 获取 GitHub 最新版本
+          V2RAYN_NEW=$(curl -s https://api.github.com/repos/2dust/v2rayN/releases/latest | grep '"tag_name"' | grep -oP '[0-9]+\.[0-9]+\.[0-9]+')
+          V2RAYNG_NEW=$(curl -s https://api.github.com/repos/2dust/v2rayNG/releases/latest | grep '"tag_name"' | grep -oP '[0-9]+\.[0-9]+\.[0-9]+')
+          V2RAYU_NEW=$(curl -s https://api.github.com/repos/yanue/V2rayU/releases/latest | grep '"tag_name"' | grep -oP '[0-9]+\.[0-9]+\.[0-9]+')
+
+          echo "Latest versions: V2RayN=$V2RAYN_NEW, V2RayNG=$V2RAYNG_NEW, V2RayU=$V2RAYU_NEW"
+
+          # 检测是否有更新
+          UPDATED="false"
+          if [ "$V2RAYN_OLD" != "$V2RAYN_NEW" ] && [ -n "$V2RAYN_NEW" ]; then
+            echo "V2RayN updated: $V2RAYN_OLD -> $V2RAYN_NEW"
+            UPDATED="true"
+          fi
+          if [ "$V2RAYNG_OLD" != "$V2RAYNG_NEW" ] && [ -n "$V2RAYNG_NEW" ]; then
+            echo "V2RayNG updated: $V2RAYNG_OLD -> $V2RAYNG_NEW"
+            UPDATED="true"
+          fi
+          if [ "$V2RAYU_OLD" != "$V2RAYU_NEW" ] && [ -n "$V2RAYU_NEW" ]; then
+            echo "V2RayU updated: $V2RAYU_OLD -> $V2RAYU_NEW"
+            UPDATED="true"
+          fi
+
+          # 输出变量
+          echo "v2rayn_old=$V2RAYN_OLD" >> $GITHUB_OUTPUT
+          echo "v2rayn_new=$V2RAYN_NEW" >> $GITHUB_OUTPUT
+          echo "v2rayng_old=$V2RAYNG_OLD" >> $GITHUB_OUTPUT
+          echo "v2rayng_new=$V2RAYNG_NEW" >> $GITHUB_OUTPUT
+          echo "v2rayu_old=$V2RAYU_OLD" >> $GITHUB_OUTPUT
+          echo "v2rayu_new=$V2RAYU_NEW" >> $GITHUB_OUTPUT
+          echo "updated=$UPDATED" >> $GITHUB_OUTPUT
+
+      - name: Update V2RayN links
+        if: steps.check.outputs.updated == 'true' && steps.check.outputs.v2rayn_old != steps.check.outputs.v2rayn_new
+        run: |
+          OLD="${{ steps.check.outputs.v2rayn_old }}"
+          NEW="${{ steps.check.outputs.v2rayn_new }}"
+          echo "Updating V2RayN: $OLD -> $NEW"
+
+          # 获取最新下载文件名
+          V2RAYN_FILES=$(curl -s https://api.github.com/repos/2dust/v2rayN/releases/latest | grep -oP '"browser_download_url":\s*"\K[^"]+windows[^"]+' | sed 's|https://github.com/||')
+
+          # 替换所有 HTML 文件中的版本号和链接
+          for f in *.html; do
+            # 替换版本号文本 (v7.22.3)
+            sed -i "s/v${OLD}/v${NEW}/g" "$f"
+            # 替换下载路径中的版本号
+            sed -i "s|v2rayN/releases/download/${OLD}/|v2rayN/releases/download/${NEW}/|g" "$f"
+          done
+
+          echo "V2RayN links updated"
+
+      - name: Update V2RayNG links
+        if: steps.check.outputs.updated == 'true' && steps.check.outputs.v2rayng_old != steps.check.outputs.v2rayng_new
+        run: |
+          OLD="${{ steps.check.outputs.v2rayng_old }}"
+          NEW="${{ steps.check.outputs.v2rayng_new }}"
+          echo "Updating V2RayNG: $OLD -> $NEW"
+
+          # 替换所有 HTML 文件中的版本号和链接
+          for f in *.html; do
+            # 替换版本号文本 (v2.1.8)
+            sed -i "s/v${OLD}/v${NEW}/g" "$f"
+            # 替换 APK 文件名中的版本号
+            sed -i "s/v2rayNG_${OLD}/v2rayNG_${NEW}/g" "$f"
+            sed -i "s/v2rayNG-${OLD}/v2rayNG-${NEW}/g" "$f"
+          done
+
+          echo "V2RayNG links updated"
+
+      - name: Update V2RayU links
+        if: steps.check.outputs.updated == 'true' && steps.check.outputs.v2rayu_old != steps.check.outputs.v2rayu_new
+        run: |
+          OLD="${{ steps.check.outputs.v2rayu_old }}"
+          NEW="${{ steps.check.outputs.v2rayu_new }}"
+          echo "Updating V2RayU: $OLD -> $NEW"
+
+          # 替换所有 HTML 文件中的版本号和链接
+          for f in *.html; do
+            # 替换版本号文本 (v4.2.8)
+            sed -i "s/v${OLD}/v${NEW}/g" "$f"
+            # 替换下载路径中的版本号
+            sed -i "s|V2rayU/releases/download/v${OLD}/|V2rayU/releases/download/v${NEW}/|g" "$f"
+          done
+
+          echo "V2RayU links updated"
+
+      - name: Update sitemap dates
+        if: steps.check.outputs.updated == 'true'
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          sed -i "s|<lastmod>[0-9-]*</lastmod>|<lastmod>${TODAY}</lastmod>|g" sitemap.xml
+          echo "Sitemap dates updated to $TODAY"
+
+      - name: Commit and push changes
+        if: steps.check.outputs.updated == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          git add -A
+
+          # 构建提交信息
+          MSG="auto-update: "
+          if [ "${{ steps.check.outputs.v2rayn_old }}" != "${{ steps.check.outputs.v2rayn_new }}" ]; then
+            MSG="${MSG}V2RayN ${{ steps.check.outputs.v2rayn_old }}→${{ steps.check.outputs.v2rayn_new }} "
+          fi
+          if [ "${{ steps.check.outputs.v2rayng_old }}" != "${{ steps.check.outputs.v2rayng_new }}" ]; then
+            MSG="${MSG}V2RayNG ${{ steps.check.outputs.v2rayng_old }}→${{ steps.check.outputs.v2rayng_new }} "
+          fi
+          if [ "${{ steps.check.outputs.v2rayu_old }}" != "${{ steps.check.outputs.v2rayu_new }}" ]; then
+            MSG="${MSG}V2RayU ${{ steps.check.outputs.v2rayu_old }}→${{ steps.check.outputs.v2rayu_new }} "
+          fi
+
+          git commit -m "$MSG"
+          git push origin main
+
+          echo "Changes pushed: $MSG"
+
+      - name: Deploy to GitHub Pages
+        if: steps.check.outputs.updated == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          external_repository: downclash/downclash.github.io
+          publish_branch: main
+          publish_dir: ./
+          keep_files: false
+          commit_message: 'deploy: ${{ steps.check.outputs.v2rayn_new }} ${{ steps.check.outputs.v2rayng_new }} ${{ steps.check.outputs.v2rayu_new }}'
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+
+      - name: No updates found
+        if: steps.check.outputs.updated != 'true'
+        run: echo "All versions are up to date. No changes needed."
