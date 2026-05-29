@@ -81,6 +81,22 @@
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           下载
         </a>
+        <button id="mobileMenuBtn" class="md:hidden" style="color: var(--text-muted);">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden backdrop-blur-xl border-t" style="background: var(--bg-primary); border-color: var(--border-primary);">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="index.html#home" class="text-sm font-medium py-2" style="color: var(--text-muted);">首页</a>
+        <a href="index.html#features" class="text-sm font-medium py-2" style="color: var(--text-muted);">功能特性</a>
+        <a href="download.html" class="text-sm font-medium py-2 text-blue-400">客户端下载</a>
+        <a href="blogs.html" class="text-sm font-medium py-2" style="color: var(--text-muted);">博客</a>
+        <a href="index.html#faq" class="text-sm font-medium py-2" style="color: var(--text-muted);">常见问题</a>
+        <a href="download.html" class="flex items-center justify-center gap-2 bg-blue-600 text-white text-sm font-bold px-5 py-2.5 rounded-lg mt-2">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> 下载
+        </a>
       </div>
     </div>
   </header>
@@ -496,9 +512,46 @@
 
   <!-- Footer -->
   <footer class="border-t" style="border-color: var(--border-primary); background: var(--bg-secondary);">
-    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <p class="text-xs" style="color: var(--text-dim);">&copy; 2024-2026 V2Ray. 本站仅为信息介绍，与 V2Ray 官方无关。</p>
-      <a href="index.html" class="text-sm text-blue-400 hover:text-blue-300 transition-colors">返回首页</a>
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- Brand -->
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+              <i class="fa-solid fa-paper-plane text-white text-sm"></i>
+            </div>
+            <span class="font-bold text-lg" style="color: var(--text-primary);">V2Ray</span>
+          </div>
+          <p class="text-sm leading-relaxed max-w-sm" style="color: var(--text-dim);">
+            V2Ray 是免费、开源的跨平台代理工具，支持多种协议和智能路由。为用户提供安全、高速的网络代理体验。
+          </p>
+        </div>
+        <!-- Links -->
+        <div>
+          <h4 class="font-semibold text-sm mb-4" style="color: var(--text-primary);">客户端</h4>
+          <ul class="space-y-2.5">
+            <li><a href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener" class="text-sm transition-colors" style="color: var(--text-dim);">V2RayN (Windows)</a></li>
+            <li><a href="https://github.com/2dust/v2rayNG/releases" target="_blank" rel="noopener" class="text-sm transition-colors" style="color: var(--text-dim);">V2RayNG (Android)</a></li>
+            <li><a href="https://github.com/yanue/V2rayU/releases" target="_blank" rel="noopener" class="text-sm transition-colors" style="color: var(--text-dim);">V2RayU (macOS)</a></li>
+          </ul>
+        </div>
+        <!-- Resources -->
+        <div>
+          <h4 class="font-semibold text-sm mb-4" style="color: var(--text-primary);">资源</h4>
+          <ul class="space-y-2.5">
+            <li><a href="https://www.v2fly.org/" target="_blank" rel="noopener" class="text-sm transition-colors" style="color: var(--text-dim);">V2Fly 官方文档</a></li>
+            <li><a href="https://github.com/v2fly/v2ray-core" target="_blank" rel="noopener" class="text-sm transition-colors" style="color: var(--text-dim);">GitHub 仓库</a></li>
+            <li><a href="blogs.html" class="text-sm transition-colors" style="color: var(--text-dim);">博客文章</a></li>
+            <li><a href="index.html#faq" class="text-sm transition-colors" style="color: var(--text-dim);">常见问题</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4" style="border-top: 1px solid var(--border-primary);">
+        <p class="text-xs" style="color: var(--text-dim);">&copy; 2024-2026 V2Ray. 本站仅为信息介绍，与 V2Ray 官方无关。</p>
+        <div class="flex items-center gap-4">
+          <a href="https://github.com/v2fly/v2ray-core" target="_blank" rel="noopener" class="transition-colors" style="color: var(--text-dim);"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
     </div>
   </footer>
 
